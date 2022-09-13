@@ -1,0 +1,49 @@
+package com.springboot.h2databaseExample.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.springboot.h2databaseExample.model.Movie;
+import com.springboot.h2databaseExample.service.MovieService;
+@RestController
+public class MovieController {
+	@Autowired
+	MovieService movieService;
+	
+	
+	@GetMapping("/movies")
+	public List<Movie> getAllMovies()
+	{
+		return movieService.getAllMovies();
+	}
+	@GetMapping("/movies/{id}")
+	public Movie getById(@PathVariable("id") int id)
+	{
+		return movieService.getById(id);
+	}
+	
+	@DeleteMapping("/movies/{id}")
+	public void deleteById(@PathVariable("id") int id)
+	{
+		 movieService.deleteMovie(id);
+	}
+	
+	@PostMapping("/movies")
+	public Movie createMovie(@RequestBody Movie movie )
+	{
+		return movieService.saveOrUpdate(movie);
+		 
+		
+		
+	}
+
+ 
+
+}
